@@ -1,0 +1,56 @@
+[
+  {
+    "nodes" : [
+      {
+        "nodes" : [
+
+        ],
+        "frame" : "{{105, 6}, {155, 68}}",
+        "class" : "Button",
+        "attributes" : {
+          "action" : "button_tapped",
+          "border_width" : 2,
+          "frame" : "{{91, 159}, {80, 32}}",
+          "title" : "Update",
+          "uuid" : "028FA0E4-B795-4477-9CC7-3121B693AA56",
+          "class" : "Button",
+          "corner_radius" : 0,
+          "name" : "button",
+          "font_size" : 15
+        },
+        "selected" : false
+      },
+      {
+        "nodes" : [
+
+        ],
+        "frame" : "{{37, 82}, {281, 403}}",
+        "class" : "Label",
+        "attributes" : {
+          "border_width" : 1,
+          "name" : "label1",
+          "frame" : "{{72, 175}, {150, 32}}",
+          "uuid" : "F77ED3D3-DB27-40F5-B6C7-F604B8F00CB8",
+          "text" : "Label",
+          "alignment" : "center",
+          "class" : "Label",
+          "corner_radius" : 0,
+          "font_size" : 12,
+          "font_name" : "<System>"
+        },
+        "selected" : true
+      }
+    ],
+    "frame" : "{{0, 0}, {347, 505}}",
+    "class" : "View",
+    "attributes" : {
+      "tint_color" : "RGBA(0.000000,0.478000,1.000000,1.000000)",
+      "enabled" : true,
+      "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+      "name" : " mydnsupdate2",
+      "background_color" : "RGBA(1.000000,1.000000,1.000000,1.000000)",
+      "flex" : ""
+    },
+    "selected" : false
+  }
+]
