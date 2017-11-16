@@ -7,28 +7,33 @@ from xml.etree import ElementTree
 from urllib.request import Request, urlopen
 
 out_file = open("crowdworksrss.htm","w")
-req = Request('https://crowdworks.jp/public/jobs/group/development.rss', headers={'User-Agent': 'Mozilla/5.0'})
-
-f = urlopen(req)
-bytes_content = f.read()  
-
-scanned_text = bytes_content[:1024].decode('ascii', errors='replace')
-match = re.search(r'charset=["\']?([\w-]+)', scanned_text)
-if match:
-    encoding = match.group(1)
-else:
-    encoding = 'utf-8' 
-
-#print('encoding:', encoding, file=sys.stderr)
-text = bytes_content.decode(encoding)  
-tree = ElementTree.fromstring(text)
+cwrssList = [["ハードウェア設計・開発", "https://crowdworks.jp/public/jobs/group/hardware_development.rss"], ["Web開発・システム設計", "https://crowdworks.jp/public/jobs/category/241.rss"], ["アプリケーション開発", "https://crowdworks.jp/public/jobs/category/269.rss"], ["アプリ・スマートフォン開発", "https://crowdworks.jp/public/jobs/group/software_development.rss"]]
 out_file.write('<!DOCTYPE html><html lang="ja"><meta charset="UTF-8">')
+for work in cwrssList:
+	h2tag = '<h2>' + work[0] + '</h2>'
+	out_file.write(h2tag)
+	url = work[1]
+	req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
 
-for item in tree.findall('channel/item'):
-    title = item.find('title').text 
-    url = item.find('link').text 
-    html = '<a href = "' + url + '" target="_blank">' + title + '</a><br>'
-    out_file.write(html)
+	f = urlopen(req)
+	bytes_content = f.read()  
+
+	scanned_text = bytes_content[:1024].decode('ascii', errors='replace')
+	match = re.search(r'charset=["\']?([\w-]+)', scanned_text)
+	if match:
+	    encoding = match.group(1)
+	else:
+	    encoding = 'utf-8' 
+
+	#print('encoding:', encoding, file=sys.stderr)
+	text = bytes_content.decode(encoding)  
+	tree = ElementTree.fromstring(text)
+	for item in tree.findall('channel/item'):
+	    title = item.find('title').text 
+	    url = item.find('link').text 
+	    html = '<a href = "' + url + '" target="_blank">' + title + '</a><br>'
+	    out_file.write(html)
+	out_file.write('<br>')
 out_file.write('</html>')
 out_file.close()
 subprocess.run(["open", "crowdworksrss.htm"], stdout=subprocess.PIPE)
