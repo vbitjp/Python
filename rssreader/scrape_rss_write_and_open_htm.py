@@ -7,12 +7,12 @@ from urllib.request import Request, urlopen
 
 def main():
 	out_file = open("crowdworksrss.htm","w")
-	cwrssList = [["ハードウェア設計・開発", "https://crowdworks.jp/public/jobs/group/hardware_development.rss"], ["Web開発・システム設計", "https://crowdworks.jp/public/jobs/category/241.rss"], ["アプリケーション開発", "https://crowdworks.jp/public/jobs/category/269.rss"], ["アプリ・スマートフォン開発", "https://crowdworks.jp/public/jobs/group/software_development.rss"]]
+	cwrssList = [["ハードウェア設計・開発", "crowdworks.jp/public/jobs/group/hardware_development.rss"], ["Web開発・システム設計", "crowdworks.jp/public/jobs/category/241.rss"], ["アプリケーション開発", "crowdworks.jp/public/jobs/category/269.rss"], ["アプリ・スマートフォン開発", "crowdworks.jp/public/jobs/group/software_development.rss"], ["ECサイト制作", "crowdworks.jp/public/jobs/category/84.rss"]]
 	out_file.write('<!DOCTYPE html><html lang="ja"><meta charset="UTF-8">')
 	for work in cwrssList:
 		h2tag = '<h2>' + work[0] + '</h2>'
 		out_file.write(h2tag)
-		url = work[1]
+		url = "https://" + work[1]
 		req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
 
 		f = urlopen(req)
