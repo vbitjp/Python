@@ -9,8 +9,9 @@ def main():
 	out_file = open("crowdworksrss.htm","w")
 	cwrssList = [["ハードウェア設計・開発", "crowdworks.jp/public/jobs/group/hardware_development.rss"], ["Web開発・システム設計", "crowdworks.jp/public/jobs/category/241.rss"], ["アプリケーション開発", "crowdworks.jp/public/jobs/category/269.rss"], ["アプリ・スマートフォン開発", "crowdworks.jp/public/jobs/group/software_development.rss"], ["ECサイト制作", "crowdworks.jp/public/jobs/category/84.rss"]]
 	out_file.write('<!DOCTYPE html><html lang="ja"><meta charset="UTF-8">')
+	nametagCounter = 0
 	for work in cwrssList:
-		h2tag = '<h2>' + work[0] + '</h2>'
+		h2tag = '<a name="' + str(nametagCounter) + '"><h2>' + work[0] + '<a href="#' + str(nametagCounter + 1) + '">↓</a></h2></a>'
 		out_file.write(h2tag)
 		url = "https://" + work[1]
 		req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -25,7 +26,6 @@ def main():
 		else:
 		    encoding = 'utf-8' 
 
-		#print('encoding:', encoding, file=sys.stderr)
 		text = bytes_content.decode(encoding)  
 		tree = ElementTree.fromstring(text)
 		for item in tree.findall('channel/item'):
@@ -34,7 +34,8 @@ def main():
 		    html = '<a href = "' + url + '" target="_blank">' + title + '</a><br>'
 		    out_file.write(html)
 		out_file.write('<br>')
-	out_file.write('</html>')
+		nametagCounter += 1
+	out_file.write('<a name="' + str(nametagCounter) + '"><a href="#0">ページTOPへ</a></a></html>')
 	out_file.close()
 	subprocess.run(["open", "crowdworksrss.htm"], stdout=subprocess.PIPE)
 	subprocess.run(["rm", "crowdworksrss.htm"], stdout=subprocess.PIPE)
