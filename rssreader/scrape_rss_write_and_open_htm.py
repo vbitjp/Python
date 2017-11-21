@@ -6,6 +6,8 @@ from xml.etree import ElementTree
 from time import sleep
 from urllib.request import Request, urlopen
 
+# 案件カテゴリURLリストのURLごとにリクエストを投げる
+# 取得したHTMLやRSSから案件のタイトルと個別案件URLのみを取得して一覧のHTMLファイルを作成する
 def main():
 	out_file = open("crowdworksrss.htm","w")
 	cwrssList = [["クラウドワークス", ""], ["ハードウェア設計・開発", "crowdworks.jp/public/jobs/group/hardware_development.rss"], ["Web開発・システム設計", "crowdworks.jp/public/jobs/category/241.rss"], ["アプリケーション開発", "crowdworks.jp/public/jobs/category/269.rss"], ["アプリ・スマートフォン開発", "crowdworks.jp/public/jobs/group/software_development.rss"], ["ECサイト制作", "crowdworks.jp/public/jobs/category/84.rss"]]
@@ -23,10 +25,12 @@ def main():
 	sleep(5)
 	subprocess.run(["rm", "crowdworksrss.htm"], stdout=subprocess.PIPE)
 
+# crowdworksであればRSS、lancersであればHTMLのスクレイピングを行う
 def FetchHtml(urlList):
 	nametagCounter = 1
 	rthtmlList = []
 	for work in urlList:
+		# クラウドワークス用にRSSスクレイピング
 		if "crowdworks.jp" in work[1]:
 			h2tag = '<a name="' + str(nametagCounter) + '"><h2>' + work[0] + '<a href="#' + str(nametagCounter + 1) + '">↓</a></h2></a>'
 			rthtmlList.append(h2tag)
@@ -37,6 +41,7 @@ def FetchHtml(urlList):
 			    html = '<a href = "' + url + '" target="_blank">' + title + '</a><br>'
 			    rthtmlList.append(html)
 			nametagCounter += 1
+		# ランサーズ用にHTMLスクレイピング
 		elif "lancers.jp" in work[1]:
 			urlList = []
 			titleList = []
@@ -60,21 +65,23 @@ def FetchHtml(urlList):
 			rthtmlList.append(h1tag)
 
 		rthtmlList.append('<br>')
+		sleep(1)
 	return [rthtmlList, nametagCounter]
 
+# URLリクエストを投げて日本語など全角文字列をHTMLタグ付きで取得する
 def GenHtml(urlpart):
 	url = "https://" + urlpart
 	req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
 	f = urlopen(req)
 	bytes_content = f.read()
-	
+	# 得られたバイトコード前半1023文字分をascii文字列にデコードする
 	scanned_text = bytes_content[:1024].decode('ascii', errors='replace')
 	match = re.search(r'charset=["\']?([\w-]+)', scanned_text)
 	if match:
 	    encoding = match.group(1)
 	else:
 	    encoding = 'utf-8' 
-
+	# 得られたバイトコードをエンコーディング指定して日本語など全角も含めた文字列にデコードする
 	return bytes_content.decode(encoding)  
 
 if __name__ == '__main__':
