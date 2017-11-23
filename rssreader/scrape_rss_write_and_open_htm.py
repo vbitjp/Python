@@ -10,8 +10,8 @@ from urllib.request import Request, urlopen
 # 取得したHTMLやRSSから案件のタイトルと個別案件URLのみを取得して一覧のHTMLファイルを作成する
 def main():
 	out_file = open("crowdworksrss.htm","w")
-	cwrssList = [["クラウドワークス", ""], ["ハードウェア設計・開発", "crowdworks.jp/public/jobs/group/hardware_development.rss"], ["Web開発・システム設計", "crowdworks.jp/public/jobs/category/241.rss"], ["アプリケーション開発", "crowdworks.jp/public/jobs/category/269.rss"], ["アプリ・スマートフォン開発", "crowdworks.jp/public/jobs/group/software_development.rss"], ["ECサイト制作", "crowdworks.jp/public/jobs/category/84.rss"]]
-	lancersList = [["ランサーズ", ""], ["ECサイト・ネットショップ構築・デザイン", "www.lancers.jp/work/search/web/ecdesign"], ["ウェブサイト制作・デザイン", "www.lancers.jp/work/search/web/website"], ["Web・システム開発", "www.lancers.jp/work/search/system/development"], ["スマホアプリ・モバイル開", "www.lancers.jp/work/search/system/smartphoneapp"], ["アプリケーション開発", "www.lancers.jp/work/search/system/app"]]
+	cwrssList = [["クラウドワークス", ""], ["C) ハードウェア設計・開発", "crowdworks.jp/public/jobs/group/hardware_development.rss"], ["C) Web開発・システム設計", "crowdworks.jp/public/jobs/category/241.rss"], ["C) アプリケーション開発", "crowdworks.jp/public/jobs/category/269.rss"], ["C) アプリ・スマートフォン開発", "crowdworks.jp/public/jobs/group/software_development.rss"], ["C) ECサイト制作", "crowdworks.jp/public/jobs/category/84.rss"]]
+	lancersList = [["ランサーズ", ""], ["L) ECサイト", "www.lancers.jp/work/search/web/ecdesign"], ["L) ウェブサイト制作・デザイン", "www.lancers.jp/work/search/web/website"], ["L) Webシステム開発", "www.lancers.jp/work/search/system/websystem"], ["L) 業務システム開発", "www.lancers.jp/work/search/system/software"], ["L) VBA開発", "www.lancers.jp/work/search/system/vba"], ["L) ネットワーク構築", "www.lancers.jp/work/search/system/server"], ["L) ハードウェア設計", "www.lancers.jp/work/search/system/hardware"], ["L) その他（システム開発）", "www.lancers.jp/work/search/system/othersystem"],["L) スマホアプリ・モバイル開", "www.lancers.jp/work/search/system/smartphoneapp"], ["L) アプリケーション開発", "www.lancers.jp/work/search/system/app"]]
 	combiList = cwrssList + lancersList
 	writeList = []
 	writeList.append('<!DOCTYPE html><html lang="ja"><meta charset="UTF-8"><a name="0">TOP</a>')
