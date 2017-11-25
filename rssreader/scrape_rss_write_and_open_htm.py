@@ -1,6 +1,5 @@
 # coding: utf-8
 import re
-import fileinput
 import subprocess
 from xml.etree import ElementTree 
 from time import sleep
