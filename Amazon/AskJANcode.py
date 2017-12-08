@@ -37,8 +37,8 @@ class Amazon:
         url = self._AMAZON_URL + "?" + req_param_str + "&Signature=" + signature
         return url
 
-
 a = Amazon()
-with urllib.request.urlopen(a._url("B00NW54S7G")) as res:
+with urllib.request.urlopen(a._url("B071D1JPFM")) as res:
     texts = res.read().decode("utf-8")
-    print(texts)
+for partial_html in re.findall(r'<EAN>.*?</EAN>', texts, re.DOTALL):
+    print(partial_html.replace('<EAN>', '').replace('</EAN>', ''))
