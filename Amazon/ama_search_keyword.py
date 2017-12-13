@@ -1,4 +1,5 @@
 # coding: utf-8
+# ama_search_keyword.py allows you to get the result of keyword search from Amazon via Product Advertising API.
 import urllib
 import urllib.request
 import time

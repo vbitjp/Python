@@ -1,4 +1,5 @@
 # coding: utf-8
+# AskJANcode.py allows you to get JANcode from Amazon via Product Advertising API.
 import urllib
 import urllib.request
 import time
