@@ -39,6 +39,8 @@ class Amazon:
         return url
 
 a = Amazon()
+# ASINを一括で問い合わせたい場合は、B071D1JPFM,4798151343,B00GSLNP0W,のように番号をカンマ区切りで渡す
+# https://images-na.ssl-images-amazon.com/images/G/09/associates/paapi/dg/index.html?ItemLookup.html
 with urllib.request.urlopen(a._url("B071D1JPFM")) as res:
     texts = res.read().decode("utf-8")
 for partial_html in re.findall(r'<EAN>.*?</EAN>', texts, re.DOTALL):
