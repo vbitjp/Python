@@ -14,6 +14,7 @@ def getWorkSheet(argDocId, argKeyPath):
 
 def main():
     worksheet = getWorkSheet(docId, keyPath)
+    worksheet.append_row([2, 3, 4])
     worksheet.update_title("newSpreadSheet01") # シート名をnewSpreadSheet01に変更する
     worksheet.resize(10, 10) # 10行10列のセルに整える
     output = worksheet.export(format='csv') # b'7,8,,,,,,\r\n0.7180067625,'
