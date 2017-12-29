@@ -18,6 +18,7 @@ for partial_html in re.findall(r'新着案件：.*?<s>', text, re.DOTALL):
     try:
         partial_html = partial_html.replace("\n", "")
         theme = re.sub(r'<(.+)>', '', partial_html)
+        theme = re.sub(r'&#(.+);', '', theme)
         theme = re.sub(r'\.\.\.(.+)#crowdworks', '', theme)
         theme = re.sub(r'\.\.\.(.+)ス」', '', theme).replace("新着案件：", "")
         url = re.search(r'title="http://crowdworks\.jp/public/jobs/(.*?)"', partial_html).group(1)
