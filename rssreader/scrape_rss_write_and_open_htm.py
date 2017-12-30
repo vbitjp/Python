@@ -31,7 +31,7 @@ def FetchHtml(urlList):
 	for work in urlList:
 		# クラウドワークス用にRSSスクレイピング
 		if "crowdworks.jp" in work[1]:
-			h2tag = '<a name="' + str(nametagCounter) + '"><h2>' + work[0] + '<a href="#' + str(nametagCounter + 1) + '">↓</a></h2></a>'
+			h2tag = '<a name="' + str(nametagCounter) + '"><h2><a href="#' + str(nametagCounter + 1) + '">↓</a>(' + work[0] + '</h2></a>'
 			rthtmlList.append(h2tag)
 			tree = ElementTree.fromstring(GenHtml(work[1]))
 			for item in tree.findall('channel/item'):
@@ -42,10 +42,10 @@ def FetchHtml(urlList):
 			nametagCounter += 1
 		# ランサーズ用にHTMLスクレイピング
 		elif "lancers.jp" in work[1]:
+			h2tag = '<a name="' + str(nametagCounter) + '"><h2><a href="#' + str(nametagCounter + 1) + '">↓</a>(' + work[0] + '</h2></a>'
+			rthtmlList.append(h2tag)
 			urlList = []
 			titleList = []
-			h2tag = '<a name="' + str(nametagCounter) + '"><h2>' + work[0] + '<a href="#' + str(nametagCounter + 1) + '">↓</a></h2></a>'
-			rthtmlList.append(h2tag)
 			text = GenHtml(work[1] + "?completed=0&sort=Work.started&direction=desc")
 			for partial_html in re.findall(r'<a href="/work/detail/.*?p', text, re.DOTALL):
 			    number = re.search(r'href="/work/detail/(.*?).p', partial_html).group(1)
