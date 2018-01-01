@@ -42,3 +42,49 @@ matC = np.dot(matA, matB)
 
 # 少数第2位の桁で打ち切っているのでNumpyは0.00[sec]と表示されます。
 print("Numpyを使った場合の実行時間：%.2f[sec]" % float(time.time() - start))
+
+
+'''
+Numpyの行列は標準のリストと挙動が異なる
+'''
+
+# Pythonのリストでスライスを用いた場合の挙動
+arr_List = [x for x in range(10)]
+print(arr_List)
+
+arr_List_copy = arr_List[:]
+arr_List_copy[0] = 100
+
+# リストのスライスではコピーが作られる。arr_Listにはarr_Listの変更が反映されない。
+print(arr_List)
+
+# Numpyのndarrayでスライスを用いた場合での挙動
+arr_Numpy = np.arange(10)
+print(arr_Numpy)
+
+arr_Numpy_view = arr_Numpy[:]
+arr_Numpy_view[0] = 100
+
+# Numpyのスライスではビュー(データが格納されている場所の情報)が代入される。
+# 奇妙なことに、arr_Numpy_viewの変更がarr_Numpyに反映される。
+print(arr_Numpy)
+
+# Numpyのndarrayでcopy()を用いた場合での挙動
+arr_Numpy = np.arange(10)
+print(arr_Numpy)
+
+arr_Numpy_copy = arr_Numpy[:].copy()
+arr_Numpy_copy[0] = 100
+
+# copy()を用いた場合は、arr_Numpy_copyはarr_Numpyに影響を与えない。
+print(arr_Numpy)
+
+
+'''
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[0 1 2 3 4 5 6 7 8 9]
+[100   1   2   3   4   5   6   7   8   9]
+[0 1 2 3 4 5 6 7 8 9]
+[0 1 2 3 4 5 6 7 8 9]
+'''
