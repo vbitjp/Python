@@ -60,3 +60,21 @@ print(np.setdiff1d(new_arr1, arr2))
 [2 5]
 [7 9]
 '''
+
+from numpy.random import randint
+
+# 変数arr1に各要素が0~10までの整数の行列(5×2)を代入
+arr1 = randint(0, 11, (5, 2))
+print(arr1)
+
+# 変数arr2に0~1までの一様乱数を三つ代入し
+arr2 = np.random.rand(3)
+print(arr2)
+'''
+[[5 8]
+ [9 2]
+ [2 8]
+ [8 4]
+ [9 4]]
+[ 0.01650348  0.57153792  0.56771237]
+'''
