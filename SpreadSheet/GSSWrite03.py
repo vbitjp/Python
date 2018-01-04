@@ -14,7 +14,9 @@ def getWorkSheet(argDocId, argKeyPath):
 
 def main():
     worksheet = getWorkSheet(docId, keyPath)
-    worksheet.append_row([2, 3, 4])
+    print(worksheet.find('4')) # 4を検索して、複数のセルに該当する場合は列の若い順・行の若い順から探して最初に該当したセル番号を返す <Cell R11C3 '4'>
+    print(worksheet.findall('4')) # 4を検索して、該当するセル全ての番号をリストで返す [<Cell R11C3 '4'>, <Cell R12C3 '4'>, <Cell R13C3 '4'>]
+    worksheet.append_row([2, 3, 4]) # 1行追加した後、A列からB列、C列...の順にリストの要素数分だけ値を挿入する
     worksheet.update_title("newSpreadSheet01") # シート名をnewSpreadSheet01に変更する
     worksheet.resize(10, 10) # 10行10列のセルに整える
     output = worksheet.export(format='csv') # b'7,8,,,,,,\r\n0.7180067625,'
