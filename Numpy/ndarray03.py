@@ -160,3 +160,38 @@ print(arr[[1, 3, 0]])
  [15 16 17 18 19]
  [ 0  1  2  3  4]]
 '''
+
+arr = np.arange(10).reshape(2, 5)
+
+# 変数arrを転置行列を得る
+print(np.transpose(arr))
+# Tメソッドでも同じ結果を得る
+print(arr.T)
+'''
+[[0 5]
+ [1 6]
+ [2 7]
+ [3 8]
+ [4 9]]
+[[0 5]
+ [1 6]
+ [2 7]
+ [3 8]
+ [4 9]]
+'''
+
+arr = np.array([[8, 4, 2], [3, 5, 1]])
+
+# argsort関数
+print(arr.argsort())
+
+# np.sort()を用いてソート
+print(np.sort(arr))
+
+# 行でソート
+arr.sort(0)
+print(arr)
+
+# 列でソート
+arr.sort(1)
+print(arr)
