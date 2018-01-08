@@ -65,4 +65,137 @@ Seriesを出力した際に「dtype: int64」と出力されるが、Seriesに�
 0か1のみを値に持つ bool という型などがある。
 '''
 
+fruits = {"banana": 3, "orange": 4, "grape": 1, "peach": 5}
+series = pd.Series(fruits)
+print(series[0:4])
+'''
+banana    3
+grape     1
+orange    4
+peach     5
+dtype: int64
+'''
+print(series[["orange", "peach"]])
+'''
+orange    4
+peach     5
+dtype: int64
+'''
 
+index = ["apple", "orange", "banana", "strawberry", "kiwifruit"]
+data = [10, 5, 8, 12, 3]
+series = pd.Series(data, index=index)
+
+# インデックス参照を用いてseriesの2つ目から4つ目までの3つの要素をスライス
+print(series[1:4])
+'''
+orange         5
+banana         8
+strawberry    12
+dtype: int64
+'''
+# "apple", "banana", "kiwifruit"のインデックスを持つ要素取り出し
+print(series[["apple", "banana", "kiwifruit"]])
+'''
+apple        10
+banana        8
+kiwifruit     3
+dtype: int64
+'''
+# seriesのデータのみ取り出す(.valuesメソッド)
+print(series.values)
+# [10  5  8 12  3]
+
+# seriesのインデックスのみ取り出す(.indexメソッド)
+print(series.index)
+# Index(['apple', 'orange', 'banana', 'strawberry', 'kiwifruit'], dtype='object')
+
+# 要素追加
+print(series.append(pd.Series([12], index=["pineapple"])))
+'''
+apple         10
+orange         5
+banana         8
+strawberry    12
+kiwifruit      3
+pineapple     12
+dtype: int64
+'''
+
+# 要素削除
+print(series.drop("strawberry"))
+'''
+apple        10
+orange        5
+banana        8
+kiwifruit     3
+dtype: int64
+'''
+
+# booleanによる要素取り出し
+conditions = [True, True, False, False, False]
+print(series[conditions])
+'''
+apple     10
+orange     5
+dtype: int64
+'''
+
+# 条件式による要素取り出し
+print(series[series >= 5])
+'''
+apple         10
+orange         5
+banana         8
+strawberry    12
+dtype: int64
+'''
+
+# series内の要素のうち、値が5以上10未満の要素を取り出す
+print(series[series >= 5][series < 10])
+'''
+orange    5
+banana    8
+dtype: int64
+'''
+
+# インデックスについてアルファベット順(昇順)にソート
+print(series.sort_index())
+'''
+apple         10
+banana         8
+kiwifruit      3
+orange         5
+strawberry    12
+dtype: int64
+'''
+# インデックスについて降順にソート
+print(series.sort_index(ascending=False))
+'''
+strawberry    12
+orange         5
+kiwifruit      3
+banana         8
+apple         10
+dtype: int64
+'''
+# データについて値の大きさを昇順にソート
+print(series.sort_values())
+'''
+kiwifruit      3
+orange         5
+banana         8
+apple         10
+strawberry    12
+dtype: int64
+'''
+# データについて値の大きさを昇順にソート
+print(series.sort_values(ascending=False))
+'''
+strawberry    12
+apple         10
+banana         8
+orange         5
+kiwifruit      3
+dtype: int64
+'''
