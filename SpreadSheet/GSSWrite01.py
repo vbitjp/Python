@@ -13,10 +13,15 @@ def getClientAuth():
     return client
 
 def main():
-	cl1 = getClientAuth()
-    worksheet = cl1.add_worksheet(title="worksheetABC", rows="20", cols="20") # ワークシートを作成する
-    cl1.del_worksheet(worksheet) # ワークシートを削除する
-
+    cl1 = getClientAuth()
+    workbook = cl1.open("GAStest1")
+    worksheet1 = workbook.add_worksheet(title="worksheetABC", rows="20", cols="20") # ワークシートを作成する
+    '''
+    既に存在するワークシート名を指定すると、以下のエラーが発生する
+    gspread.exceptions.RequestError: (400, "400: b'シート名「worksheetABC」はすでに存在しています。別の名前を入力してください。'")
+    '''
+    worksheet2 = workbook.add_worksheet(title="worksheetDEF", rows="20", cols="20") # ワークシートを作成する
+    cl1.del_worksheet(worksheet2) # ワークシートを削除する
 
 if __name__ == '__main__':
     main()
