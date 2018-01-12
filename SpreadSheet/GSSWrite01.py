@@ -14,7 +14,7 @@ def getClientAuth():
 
 def main():
     cl1 = getClientAuth()
-    workbook = cl1.open("GAStest1")
+    workbook = cl1.open("GAStest1") # ワークブック名を指定して開く
     worksheet1 = workbook.add_worksheet(title="worksheetABC", rows="20", cols="20") # ワークシートを作成する
     '''
     既に存在するワークシート名を指定すると、以下のエラーが発生する
@@ -22,6 +22,7 @@ def main():
     '''
     worksheet2 = workbook.add_worksheet(title="worksheetDEF", rows="20", cols="20") # ワークシートを作成する
     cl1.del_worksheet(worksheet2) # ワークシートを削除する
+    print(workbook.worksheets()) # 存在するワークシートの一覧を返す <Worksheet 'worksheetABC' id:yyyyyyy>, <Worksheet 'worksheetDEF' id:xxxxxxx>]
 
 if __name__ == '__main__':
     main()
