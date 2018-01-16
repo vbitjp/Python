@@ -9,7 +9,7 @@ chrome_options.binary_location = '/Applications/Google Chrome.app/Contents/MacOS
 chrome_driver_path = '/Users/vbit/chromedriver'
 
 browser = webdriver.Chrome(chrome_driver_path, chrome_options=chrome_options)
-url_str = 'https://vbit.jp'
+url_str = 'https://www.google.co.jp'
 browser.get(url_str)
 html = browser.page_source
 browser.close()
