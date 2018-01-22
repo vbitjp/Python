@@ -72,3 +72,54 @@ print(df)
 1     30      25      12          10          8        NaN
 2     30      12      10           8         25        3.0
 '''
+
+data1a = {"fruits": ["apple", "orange", "banana", "strawberry", "kiwifruit"],
+        "year": [2001, 2002, 2001, 2008, 2006],
+        "time": [1, 4, 5, 6, 3]}
+df1 = pd.DataFrame(data1a)
+series = pd.Series(["mango", 2008, 7], index=["fruits", "year", "time"])
+
+df1 = df1.append(series, ignore_index=True)
+print(df1)
+'''
+       fruits  time  year
+0       apple     1  2001
+1      orange     4  2002
+2      banana     5  2001
+3  strawberry     6  2008
+4   kiwifruit     3  2006
+5       mango     7  2008
+'''
+
+# 列の追加
+'''
+DataFrame型の変数dfに対してdf["新しいカラム"]にSeriesもしくはリストを代入することで
+新しい列を追加できる。リストを代入した場合は最初行から最初の要素が割り当てられ、Seriesを
+代入した場合はSeriesのインデックスがdfのインデックスに対応する。
+'''
+data1a = {"fruits": ["apple", "orange", "banana", "strawberry", "kiwifruit"],
+        "year": [2001, 2002, 2001, 2008, 2006],
+        "time": [1, 4, 5, 6, 3]}
+df1 = pd.DataFrame(data1a)
+
+df1["price"] = [150, 120, 100, 300, 150]
+print(df1)
+'''
+       fruits  time  year  price
+0       apple     1  2001    150
+1      orange     4  2002    120
+2      banana     5  2001    100
+3  strawberry     6  2008    300
+4   kiwifruit     3  2006    150
+'''
+# ここで、24行目のDataFrame変数dfに新しい列"mango"をnew_columnのデータと共に追加し、dfに再代入してみる
+new_column = pd.Series([15, 7], index=[0, 1])
+df["mango"] = new_column
+print(df)
+'''
+   apple  orange  banana  strawberry  kiwifruit  pineapple  mango
+0     10       5       8          12          3        NaN   15.0
+1     30      25      12          10          8        NaN    7.0
+2     30      12      10           8         25        3.0    NaN
+'''
+
