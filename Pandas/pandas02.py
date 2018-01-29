@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # coding: utf-8
-
+import numpy as np
 import pandas as pd
 
 '''
@@ -100,10 +100,10 @@ DataFrame型の変数dfに対してdf["新しいカラム"]にSeriesもしくは
 data1a = {"fruits": ["apple", "orange", "banana", "strawberry", "kiwifruit"],
         "year": [2001, 2002, 2001, 2008, 2006],
         "time": [1, 4, 5, 6, 3]}
-df1 = pd.DataFrame(data1a)
+df2 = pd.DataFrame(data1a)
 
-df1["price"] = [150, 120, 100, 300, 150]
-print(df1)
+df2["price"] = [150, 120, 100, 300, 150]
+print(df2)
 '''
        fruits  time  year  price
 0       apple     1  2001    150
@@ -123,3 +123,22 @@ print(df)
 2     30      12      10           8         25        3.0    NaN
 '''
 
+# 名前による参照
+'''
+DataFrame型のデータのインデックス、カラム名を使って参照する場合はlocを使用する。
+DataFrame型の変数dfに対してdf.loc["インデックスのリスト", "カラムのリスト"]と指定すると、
+該当する範囲のDataFrameを得ることができる。
+'''
+np.random.seed(0)
+columns = ["apple", "orange", "banana", "strawberry", "kiwifruit"]
+
+# DataFrameを生成し、列を追加
+df3 = pd.DataFrame()
+for column in columns:
+  df3[column] = np.random.choice(range(1, 11), 10)
+df3.index = range(1, 11)
+
+# loc[]を使ってdfの2行目から5行目までの4行と、"banana", "kiwifruit"の2列を含むDataFrameをdfに代入する
+# インデックスは先頭の行が1、以降は整数値が昇順に付けられている
+df3 = df3.loc[range(2,6),["banana","kiwifruit"]]
+print(df3)
