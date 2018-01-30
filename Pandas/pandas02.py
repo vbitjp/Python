@@ -138,7 +138,31 @@ for column in columns:
   df3[column] = np.random.choice(range(1, 11), 10)
 df3.index = range(1, 11)
 
-# loc[]を使ってdfの2行目から5行目までの4行と、"banana", "kiwifruit"の2列を含むDataFrameをdfに代入する
+# loc[]を使ってdfの2行目から5行目までの4行と、"banana", "kiwifruit"の2列を含むDataFrameをdf3に代入する
 # インデックスは先頭の行が1、以降は整数値が昇順に付けられている
-df3 = df3.loc[range(2,6),["banana","kiwifruit"]]
-print(df3)
+df4 = df3.loc[range(2,6),["banana","kiwifruit"]]
+print(df4)
+'''
+   banana  kiwifruit
+2      10         10
+3       9          1
+4      10          5
+5       5          8
+'''
+
+# 番号による参照
+'''
+インデックス、カラムの番号でDataFrame型のデータを参照する場合はilocを使用する。
+DataFrame型の変数dfに対してdf.iloc["行番号のリスト","列番号のリスト"]と指定することで
+該当する範囲のDataFrameを得られる。リストを渡す他にスライス機能を使うこともできる。
+'''
+# iloc[]を使ってdfの2行目から5行目までの4行と、"banana", "kiwifruit"の2列を含むDataFrameをdf3に代入
+df5 = df3.iloc[range(1,5), [2, 4]] # スライスを用いて df = df.iloc[1:5, [2, 4]] でも可
+print(df5)
+'''
+   banana  kiwifruit
+2      10         10
+3       9          1
+4      10          5
+5       5          8
+'''
