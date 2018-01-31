@@ -97,9 +97,6 @@ DataFrame型の変数dfに対してdf["新しいカラム"]にSeriesもしくは
 新しい列を追加できる。リストを代入した場合は最初行から最初の要素が割り当てられ、Seriesを
 代入した場合はSeriesのインデックスがdfのインデックスに対応する。
 '''
-data1a = {"fruits": ["apple", "orange", "banana", "strawberry", "kiwifruit"],
-        "year": [2001, 2002, 2001, 2008, 2006],
-        "time": [1, 4, 5, 6, 3]}
 df2 = pd.DataFrame(data1a)
 
 df2["price"] = [150, 120, 100, 300, 150]
@@ -165,4 +162,56 @@ print(df5)
 3       9          1
 4      10          5
 5       5          8
+'''
+
+# 行または列の削除
+'''
+DataFrame型の変数dfに対してdf.drop()にインデックスまたはカラムを指定して、該当する行または列
+を削除したDataFrameを生成できる。リストを渡してまとめて削除することもできる。ただし、行と列を
+同時に削除することはできない上に、列を削除する場合は第2引数にaxis=1を指定して渡す必要がある。
+'''
+df5 = pd.DataFrame(data1a)
+# drop()を用いてdfの0,1行目を削除
+df_51 = df5.drop(range(0, 2))
+print(df_51)
+'''
+       fruits  time  year
+2      banana     5  2001
+3  strawberry     6  2008
+4   kiwifruit     3  2006
+'''
+# drop()を用いてdfの列"year"を削除
+df_52 = df5.drop("year", axis=1)
+print(df_52)
+'''
+      fruits  time
+0       apple     1
+1      orange     4
+2      banana     5
+3  strawberry     6
+4   kiwifruit     3
+'''
+
+# DataFrameを生成し、列を追加
+df6 = pd.DataFrame()
+for column in columns: # columnsは130行目
+    df6[column] = np.random.choice(range(1, 11), 10)
+df6.index = range(1, 11)
+
+# drop()を用いてdfの奇数のインデックスがついている行のみを残す
+df6 = df6.drop(np.arange(2, 11, 2))
+#np.arange(2, 11, 2)で、2から10までの数列を差が２になるように抜き出せる
+#ここでは2,4,6,8,10が出力される
+#np.arange(2,11,3)とすると2から10までの数列を差が3になるように抜き出せる
+
+# drop()を用いてdfの列"strawberry"を削除する
+df6 = df6.drop("strawberry", axis=1)
+print(df6)
+'''
+   apple  orange  banana  kiwifruit
+1      1       9       1          6
+3      6       2       6          4
+5      7      10       5          6
+7      5       4       7          2
+9      5       8       5          5
 '''
