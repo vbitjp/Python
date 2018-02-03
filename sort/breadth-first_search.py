@@ -23,18 +23,18 @@ graph["300000"] = []
 def search(name):
     search_queue = deque()
     search_queue += graph[name]
-    # This array is how you keep track of which number you've searched before.
+    # 探索処理済みの数値を入れるリスト
     searched = []
     while search_queue:
         number = search_queue.popleft()
-        # Only search this number if you haven't already searched them.
+        # 未処理の数値のみ探索する
         if not number in searched:
             if number_is_threedigit(number):
                 print(number + " is 6-digit number that initially found!")
                 return True
             else:
                 search_queue += graph[number]
-                # Marks this number as searched
+                # 処理済みにする
                 searched.append(number)
     return False
 
