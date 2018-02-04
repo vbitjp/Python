@@ -197,12 +197,35 @@ df6 = pd.DataFrame()
 for column in columns: # columnsは130行目
     df6[column] = np.random.choice(range(1, 11), 10)
 df6.index = range(1, 11)
+print(df6)
+'''
+    apple  orange  banana  strawberry  kiwifruit
+1       1       9       1           5          6
+2       5       2       4           5         10
+3       6       2       6           9          4
+4       6       8      10           5          1
+5       7      10       5           4          6
+6       9      10       5           8          1
+7       5       4       7           6          2
+8       2       7       5           6          3
+9       5       8       5           1          5
+10     10       3       4           2          3
+'''
 
 # drop()を用いてdfの奇数のインデックスがついている行のみを残す
 df6 = df6.drop(np.arange(2, 11, 2))
 #np.arange(2, 11, 2)で、2から10までの数列を差が２になるように抜き出せる
-#ここでは2,4,6,8,10が出力される
+#ここでは2,4,6,8,10が出力される。それらをdropメソッドで削ぎ落とすと奇数のみ出力
+print(df6)
 #np.arange(2,11,3)とすると2から10までの数列を差が3になるように抜き出せる
+'''
+   apple  orange  banana  strawberry  kiwifruit
+1      1       9       1           5          6
+3      6       2       6           9          4
+5      7      10       5           4          6
+7      5       4       7           6          2
+9      5       8       5           1          5
+'''
 
 # drop()を用いてdfの列"strawberry"を削除する
 df6 = df6.drop("strawberry", axis=1)
@@ -215,3 +238,37 @@ print(df6)
 7      5       4       7          2
 9      5       8       5          5
 '''
+
+# ソート
+df7 = pd.DataFrame(data1a)
+# データをyearの昇順にソートする
+df7 = df7.sort_values(by="year", ascending = True)
+print(df7)
+'''
+       fruits  time  year
+0       apple     1  2001
+2      banana     5  2001
+1      orange     4  2002
+4   kiwifruit     3  2006
+3  strawberry     6  2008
+'''
+
+# df3を"apple", "orange", "banana", "strawberry", "kiwifruit"の
+#優先度の順に昇順にソート
+df3 = df3.sort_values(by=columns, ascending = True)
+print(df3)
+'''
+    apple  orange  banana  strawberry  kiwifruit
+2       1       7      10           4         10
+9       3       9       6           1          3
+7       4       8       1           4          3
+3       4       9       9           9          1
+4       4       9      10           2          5
+10      5       2       1           2          1
+8       6       8       4           8          8
+1       6       8       6           3         10
+5       8       2       5           4          8
+6      10       7       4           4          4
+'''
+
+
