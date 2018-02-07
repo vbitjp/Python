@@ -213,10 +213,10 @@ print(df6)
 '''
 
 # drop()を用いてdfの奇数のインデックスがついている行のみを残す
-df6 = df6.drop(np.arange(2, 11, 2))
+df7 = df6.drop(np.arange(2, 11, 2))
 #np.arange(2, 11, 2)で、2から10までの数列を差が２になるように抜き出せる
 #ここでは2,4,6,8,10が出力される。それらをdropメソッドで削ぎ落とすと奇数のみ出力
-print(df6)
+print(df7)
 #np.arange(2,11,3)とすると2から10までの数列を差が3になるように抜き出せる
 '''
    apple  orange  banana  strawberry  kiwifruit
@@ -228,8 +228,8 @@ print(df6)
 '''
 
 # drop()を用いてdfの列"strawberry"を削除する
-df6 = df6.drop("strawberry", axis=1)
-print(df6)
+df8 = df6.drop("strawberry", axis=1)
+print(df8)
 '''
    apple  orange  banana  kiwifruit
 1      1       9       1          6
@@ -240,10 +240,10 @@ print(df6)
 '''
 
 # ソート
-df7 = pd.DataFrame(data1a)
+df9 = pd.DataFrame(data1a)
 # データをyearの昇順にソートする
-df7 = df7.sort_values(by="year", ascending = True)
-print(df7)
+df9 = df9.sort_values(by="year", ascending = True)
+print(df9)
 '''
        fruits  time  year
 0       apple     1  2001
@@ -255,8 +255,8 @@ print(df7)
 
 # df3を"apple", "orange", "banana", "strawberry", "kiwifruit"の
 #優先度の順に昇順にソート
-df3 = df3.sort_values(by=columns, ascending = True)
-print(df3)
+df10 = df3.sort_values(by=columns, ascending = True)
+print(df10)
 '''
     apple  orange  banana  strawberry  kiwifruit
 2       1       7      10           4         10
@@ -271,4 +271,13 @@ print(df3)
 6      10       7       4           4          4
 '''
 
-
+# フィルタリングを用いて、dfの"apple"列が5以上かつ"kiwifruit"列が5以上の値をもつ行を含むDataFrameをdfに代入
+df12 = df3.loc[df3["apple"] >= 5]
+df12 = df12.loc[df12["kiwifruit"] >= 5]
+print(df12)
+'''
+   apple  orange  banana  strawberry  kiwifruit
+1      6       8       6           3         10
+5      8       2       5           4          8
+8      6       8       4           8          8
+'''
