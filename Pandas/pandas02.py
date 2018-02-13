@@ -226,6 +226,11 @@ print(df7)
 7      5       4       7           6          2
 9      5       8       5           1          5
 '''
+# また、0から10までの範囲を等間隔の5点にわける場合
+print(np.linspace(0, 10, 5))
+'''
+[  0.    2.5   5.    7.5  10. ]
+'''
 
 # drop()を用いてdfの列"strawberry"を削除する
 df8 = df6.drop("strawberry", axis=1)

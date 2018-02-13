@@ -189,7 +189,7 @@ apple         10
 strawberry    12
 dtype: int64
 '''
-# データについて値の大きさを昇順にソート
+# データについて値の大きさを降順にソート
 print(series.sort_values(ascending=False))
 '''
 strawberry    12
