@@ -81,3 +81,33 @@ print(df4)
 5    NaN     NaN     NaN    73.0       80.0    77.0
 7    NaN     NaN     NaN    10.0       65.0    72.0
 '''
+
+# 連結する際のラベルの指定
+# df_data1とdf_data2を横方向に連結＆Keysに"X", "Y"を指定してMultiIndex化
+df5 = pd.concat([df_data1, df_data2], axis=1, keys=["X", "Y"])
+
+#  dfの"Y"ラベルの"banana"抜き出し
+Y_banana = df5["Y", "banana"]
+
+print(df5)
+'''
+      X                    Y                 
+  apple orange banana orange kiwifruit banana
+1  45.0   68.0   37.0   38.0      76.0   17.0
+2  48.0   10.0   88.0    NaN       NaN    NaN
+3  65.0   84.0   71.0   13.0       6.0    2.0
+4  68.0   22.0   89.0    NaN       NaN    NaN
+5   NaN    NaN    NaN   73.0      80.0   77.0
+7   NaN    NaN    NaN   10.0      65.0   72.0
+'''
+print()
+print(Y_banana)
+'''
+1    17.0
+2     NaN
+3     2.0
+4     NaN
+5    77.0
+7    72.0
+Name: (Y, banana), dtype: float64
+'''
