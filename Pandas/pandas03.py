@@ -111,3 +111,138 @@ print(Y_banana)
 7    72.0
 Name: (Y, banana), dtype: float64
 '''
+ 
+# DataFrameの結合
+
+data1 = {"fruits": ["apple", "orange", "banana", "strawberry", "kiwifruit"],
+        "year": [2001, 2002, 2001, 2008, 2006],
+        "amount": [1, 4, 5, 6, 3]}
+df6 = pd.DataFrame(data1)
+print(df6)
+print()
+'''
+   amount      fruits  year
+0       1       apple  2001
+1       4      orange  2002
+2       5      banana  2001
+3       6  strawberry  2008
+4       3   kiwifruit  2006
+'''
+data2 = {"fruits": ["apple", "orange", "banana", "strawberry", "mango"],
+        "year": [2001, 2002, 2001, 2008, 2007],
+        "price": [150, 120, 100, 250, 3000]}
+df7 = pd.DataFrame(data2)
+print(df7)
+print()
+'''
+       fruits  price  year
+0       apple    150  2001
+1      orange    120  2002
+2      banana    100  2001
+3  strawberry    250  2008
+4       mango   3000  2007
+'''
+# "fruits"をKeyに内部結合
+df8 = pd.merge(df6, df7, on="fruits", how="inner")
+print(df8)
+'''
+   amount      fruits  year_x  price  year_y
+0       1       apple    2001    150    2001
+1       4      orange    2002    120    2002
+2       5      banana    2001    100    2001
+3       6  strawberry    2008    250    2008
+'''
+
+# "fruits"をKeyに外部結合
+df9 = pd.merge(df6, df7, on="fruits", how="outer")
+print(df9)
+'''
+   amount      fruits  year_x   price  year_y
+0     1.0       apple  2001.0   150.0  2001.0
+1     4.0      orange  2002.0   120.0  2002.0
+2     5.0      banana  2001.0   100.0  2001.0
+3     6.0  strawberry  2008.0   250.0  2008.0
+4     3.0   kiwifruit  2006.0     NaN     NaN
+5     NaN       mango     NaN  3000.0  2007.0
+'''
+
+# 荒ぶった列をKeyにして結合する
+# 注文情報
+order_df = pd.DataFrame([[1000, 2546, 103],
+                         [1001, 4352, 101],
+                         [1002, 342, 101]],
+                         columns=["id", "item_id", "customer_id"])
+# 顧客情報
+customer_df = pd.DataFrame([[101, "Tanaka"],
+                           [102, "Suzuki"],
+                           [103, "Kato"]],
+                           columns=["id", "name"])
+
+# order_dfとcustomer_dfを結合。order_dfの"customer_id", customer_dfの"id"を参照して内部結合
+order_df1 = pd.merge(order_df, customer_df, left_on="customer_id", right_on="id", how="inner")
+print(order_df1)
+'''
+   id_x  item_id  customer_id  id_y    name
+0  1000     2546          103   103    Kato
+1  1001     4352          101   101  Tanaka
+2  1002      342          101   101  Tanaka
+'''
+# インデックスをKeyにして結合する
+customer_df = pd.DataFrame([["Tanaka"],
+                           ["Suzuki"],
+                           ["Kato"]],
+                           columns=["name"])
+customer_df.index = [101, 102, 103]
+# order_dfとcustomer_dfを結合。order_dfの"customer_id", customer_dfの"id"を参照して内部結合
+order_df2 = pd.merge(order_df, customer_df, left_on="customer_id", right_index=True, how="inner")
+print(order_df2)
+'''
+     id  item_id  customer_id    name
+0  1000     2546          103    Kato
+1  1001     4352          101  Tanaka
+2  1002      342          101  Tanaka
+'''
+
+# DataFrameを用いたデータ分析
+
+np.random.seed(0)
+columns = ["apple", "orange", "banana", "strawberry", "kiwifruit"]
+
+# DataFrameを生成し、列を追加
+df = pd.DataFrame()
+for column in columns:
+    df[column] = np.random.choice(range(1, 11), 10)
+df.index = range(1, 11)
+
+# dfの冒頭3行取得
+df_head = df.head(3)
+print(df_head)
+'''
+   apple  orange  banana  strawberry  kiwifruit
+1      6       8       6           3         10
+2      1       7      10           4         10
+3      4       9       9           9          1
+'''
+
+# dfの末尾3行取得
+df_tail = df.tail(3)
+print(df_tail)
+'''
+    apple  orange  banana  strawberry  kiwifruit
+8       6       8       4           8          8
+9       3       9       6           1          3
+10      5       2       1           2          1
+'''
+
+# dfの各要素を2倍し、double_dfに代入してください
+double_df = df * 2
+
+# dfの各要素を2乗し、square_dfに代入してください
+square_df = df * df
+
+# dfの各要素の平方根を計算し、sqrt_dfに代入してください
+sqrt_df = np.sqrt(df)
+
+print(double_df)
+print(square_df)
+print(sqrt_df)
