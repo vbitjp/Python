@@ -295,3 +295,64 @@ mean    5.1     6.9     5.6         4.1        5.3
 max    10.0     9.0    10.0         9.0       10.0
 min     1.0     2.0     1.0         1.0        1.0
 '''
+
+# 行間または列間の差を求める
+# dfの各行について、2行後の行との差。axis=0で行方向、1で列方向
+df_diff = df.diff(-2, axis=0)
+print(df)
+'''
+    apple  orange  banana  strawberry  kiwifruit
+1       6       8       6           3         10
+2       1       7      10           4         10
+3       4       9       9           9          1
+4       4       9      10           2          5
+5       8       2       5           4          8
+6      10       7       4           4          4
+7       4       8       1           4          3
+8       6       8       4           8          8
+9       3       9       6           1          3
+10      5       2       1           2          1
+'''
+print(df_diff)
+'''
+    apple  orange  banana  strawberry  kiwifruit
+1     2.0    -1.0    -3.0        -6.0        9.0
+2    -3.0    -2.0     0.0         2.0        5.0
+3    -4.0     7.0     4.0         5.0       -7.0
+4    -6.0     2.0     6.0        -2.0        1.0
+5     4.0    -6.0     4.0         0.0        5.0
+6     4.0    -1.0     0.0        -4.0       -4.0
+7     1.0    -1.0    -5.0         3.0        0.0
+8     1.0     6.0     3.0         6.0        7.0
+9     NaN     NaN     NaN         NaN        NaN
+10    NaN     NaN     NaN         NaN        NaN
+'''
+
+# グループ化
+# 都道府県に関するDataFrameを作成
+prefecture_df = pd.DataFrame([["Tokyo", 2190, 13636, "Kanto"], ["Kanagawa", 2415, 9145, "Kanto"],
+                              ["Osaka", 1904, 8837, "Kinki"], ["Kyoto", 4610, 2605, "Kinki"],
+                              ["Aichi", 5172, 7505, "Chubu"]], 
+                             columns=["Prefecture", "Area", "Population", "Region"])
+print(prefecture_df)
+'''
+  Prefecture  Area  Population Region
+0      Tokyo  2190       13636  Kanto
+1   Kanagawa  2415        9145  Kanto
+2      Osaka  1904        8837  Kinki
+3      Kyoto  4610        2605  Kinki
+4      Aichi  5172        7505  Chubu
+'''
+# Regionについてグループ化
+grouped_region = prefecture_df.groupby("Region")
+
+# RegionごとにAreaとPopulationの平均を求める
+mean_df = grouped_region.mean()
+print(mean_df)
+'''
+          Area  Population
+Region                    
+Chubu   5172.0      7505.0
+Kanto   2302.5     11390.5
+Kinki   3257.0      5721.0
+'''
