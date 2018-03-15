@@ -191,3 +191,72 @@ print(dupli_data.drop_duplicates())
 
 drop_duplicatesを用いると、重複したデータの削除後のデータを表示する。
 '''
+
+# マッピング
+attri_data1 = {"ID": ["100", "101", "102", "103", "104", "106", "108", "110", "111", "113"]
+        ,"city": ["Tokyo", "Osaka", "Kyoto", "Hokkaido", "Tokyo", "Tokyo", "Osaka", "Kyoto", "Hokkaido", "Tokyo"]
+        ,"birth_year" :[1990, 1989, 1992, 1997, 1982, 1991, 1988, 1990, 1995, 1981]
+        ,"name" :["Hiroshi", "Akiko", "Yuki", "Satoru", "Steeve", "Mituru", "Aoi", "Tarou", "Suguru", "Mitsuo"]}
+attri_data_frame1 = DataFrame(attri_data1)
+
+print(attri_data_frame1)
+'''
+    ID  birth_year      city     name
+0  100        1990     Tokyo  Hiroshi
+1  101        1989     Osaka    Akiko
+2  102        1992     Kyoto     Yuki
+3  103        1997  Hokkaido   Satoru
+4  104        1982     Tokyo   Steeve
+5  106        1991     Tokyo   Mituru
+6  108        1988     Osaka      Aoi
+7  110        1990     Kyoto    Tarou
+8  111        1995  Hokkaido   Suguru
+9  113        1981     Tokyo   Mitsuo
+'''
+
+# 新しい辞書を作成
+city_map ={"Tokyo":"Kanto"
+          ,"Hokkaido":"Hokkaido"
+          ,"Osaka":"Kansai"
+          ,"Kyoto":"Kansai"}
+
+# 新しいカラムとしてregionを追加
+attri_data_frame1["region"] = attri_data_frame1["city"].map(city_map)
+
+print(attri_data_frame1)
+'''
+    ID  birth_year      city     name    region
+0  100        1990     Tokyo  Hiroshi     Kanto
+1  101        1989     Osaka    Akiko    Kansai
+2  102        1992     Kyoto     Yuki    Kansai
+3  103        1997  Hokkaido   Satoru  Hokkaido
+4  104        1982     Tokyo   Steeve     Kanto
+5  106        1991     Tokyo   Mituru     Kanto
+6  108        1988     Osaka      Aoi    Kansai
+7  110        1990     Kyoto    Tarou    Kansai
+8  111        1995  Hokkaido   Suguru  Hokkaido
+9  113        1981     Tokyo   Mitsuo     Kanto
+
+regionカラムに地方名が追加された
+'''
+# また新しい辞書を作成
+we_map ={"Tokyo":"east"
+          ,"Hokkaido":"east"
+          ,"Osaka":"west"
+          ,"Kyoto":"west"}
+# 新しいカラムとしてWEを追加
+attri_data_frame1["WE"] = attri_data_frame1["city"].map(we_map)
+print(attri_data_frame1)
+'''
+    ID  birth_year      city     name    region    WE
+0  100        1990     Tokyo  Hiroshi     Kanto  east
+1  101        1989     Osaka    Akiko    Kansai  west
+2  102        1992     Kyoto     Yuki    Kansai  west
+3  103        1997  Hokkaido   Satoru  Hokkaido  east
+4  104        1982     Tokyo   Steeve     Kanto  east
+5  106        1991     Tokyo   Mituru     Kanto  east
+6  108        1988     Osaka      Aoi    Kansai  west
+7  110        1990     Kyoto    Tarou    Kansai  west
+8  111        1995  Hokkaido   Suguru  Hokkaido  east
+9  113        1981     Tokyo   Mitsuo     Kanto  east
+'''
