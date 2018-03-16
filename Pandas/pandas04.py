@@ -260,3 +260,35 @@ print(attri_data_frame1)
 8  111        1995  Hokkaido   Suguru  Hokkaido  east
 9  113        1981     Tokyo   Mitsuo     Kanto  east
 '''
+
+# ビン分割:ある離散的な範囲にデータを分割して集計する機能
+# 分割の粒度リスト
+birth_year_bins = [1980,1985,1990,1995,2000]
+# ビン分割
+birth_year_cut_data = pd.cut(attri_data_frame1.birth_year,birth_year_bins)
+print(birth_year_cut_data)
+'''
+0    (1985, 1990]
+1    (1985, 1990]
+2    (1990, 1995]
+3    (1995, 2000]
+4    (1980, 1985]
+5    (1990, 1995]
+6    (1985, 1990]
+7    (1985, 1990]
+8    (1990, 1995]
+9    (1980, 1985]
+Name: birth_year, dtype: category
+Categories (4, interval[int64]): [(1980, 1985] < (1985, 1990] < (1990, 1995] < (1995, 2000]]
+()はその値を含まず、[]はその値を含む。つまり(1980, 1985]の場合、1980は含まず1985は含む
+'''
+# それぞれのビンの数を集計したい場合は、value_countsを使う
+print(pd.value_counts(birth_year_cut_data))
+'''
+1995, 2000]]
+(1985, 1990]    4
+(1990, 1995]    3
+(1980, 1985]    2
+(1995, 2000]    1
+Name: birth_year, dtype: int64
+'''
