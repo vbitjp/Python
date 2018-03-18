@@ -282,13 +282,42 @@ Name: birth_year, dtype: category
 Categories (4, interval[int64]): [(1980, 1985] < (1985, 1990] < (1990, 1995] < (1995, 2000]]
 ()はその値を含まず、[]はその値を含む。つまり(1980, 1985]の場合、1980は含まず1985は含む
 '''
+
 # それぞれのビンの数を集計したい場合は、value_countsを使う
 print(pd.value_counts(birth_year_cut_data))
 '''
-1995, 2000]]
 (1985, 1990]    4
 (1990, 1995]    3
 (1980, 1985]    2
 (1995, 2000]    1
 Name: birth_year, dtype: int64
+'''
+
+# それぞれのビンに名前をつける
+group_names = ["first1980", "second1980", "first1990", "second1990"]
+birth_year_cut_data = pd.cut(attri_data_frame1.birth_year,birth_year_bins,labels = group_names)
+print(pd.value_counts(birth_year_cut_data))
+'''
+second1980    4
+first1990     3
+first1980     2
+second1990    1
+Name: birth_year, dtype: int64
+'''
+
+# あらかじめ分割数を指定して分割(同じサイズのビンを作成)
+print(pd.cut(attri_data_frame1.birth_year,2))
+'''
+0      (1989.0, 1997.0]
+1    (1980.984, 1989.0]
+2      (1989.0, 1997.0]
+3      (1989.0, 1997.0]
+4    (1980.984, 1989.0]
+5      (1989.0, 1997.0]
+6    (1980.984, 1989.0]
+7      (1989.0, 1997.0]
+8      (1989.0, 1997.0]
+9    (1980.984, 1989.0]
+Name: birth_year, dtype: category
+Categories (2, interval[float64]): [(1980.984, 1989.0] < (1989.0, 1997.0]]
 '''
