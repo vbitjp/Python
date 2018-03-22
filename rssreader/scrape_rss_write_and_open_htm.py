@@ -14,6 +14,7 @@ def main():
 	combiList = cwrssList + lancersList
 	writeList = []
 	writeList.append('<!DOCTYPE html><html lang="ja"><meta charset="UTF-8"><a name="0">TOP</a>')
+	writeList.append(datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
 	htList = FetchHtml(combiList)
 	writeList = writeList + htList[0]
 	writeList.append('<a name="' + str(htList[1]) + '"><a href="#0">ページTOPへ</a></a></html>')
