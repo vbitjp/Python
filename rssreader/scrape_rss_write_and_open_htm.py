@@ -1,4 +1,6 @@
 # coding: utf-8
+import datetime
+import platform
 import re
 import subprocess
 from xml.etree import ElementTree 
@@ -13,17 +15,22 @@ def main():
 	lancersList = [["ランサーズ", ""], ["L) ECサイト", "www.lancers.jp/work/search/web/ecdesign"], ["L) ウェブサイト制作・デザイン", "www.lancers.jp/work/search/web/website"], ["L) Webシステム開発", "www.lancers.jp/work/search/system/websystem"], ["L) 業務システム開発", "www.lancers.jp/work/search/system/software"], ["L) VBA開発", "www.lancers.jp/work/search/system/vba"], ["L) ネットワーク構築", "www.lancers.jp/work/search/system/server"], ["L) ハードウェア設計", "www.lancers.jp/work/search/system/hardware"], ["L) その他（システム開発）", "www.lancers.jp/work/search/system/othersystem"],["L) スマホアプリ・モバイル開", "www.lancers.jp/work/search/system/smartphoneapp"], ["L) アプリケーション開発", "www.lancers.jp/work/search/system/app"]]
 	combiList = cwrssList + lancersList
 	writeList = []
-	writeList.append('<!DOCTYPE html><html lang="ja"><meta charset="UTF-8"><a name="0">TOP</a>')
-	writeList.append(datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
+	startTime = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+	writeList.append('<!DOCTYPE html><html lang="ja"><meta charset="UTF-8"><a name="0">' + startTime + '</a>')
 	htList = FetchHtml(combiList)
 	writeList = writeList + htList[0]
 	writeList.append('<a name="' + str(htList[1]) + '"><a href="#0">ページTOPへ</a></a></html>')
 	for line in writeList:
 		out_file.write(line)
 	out_file.close()
-	subprocess.run(["open", "crowdworksrss.htm"], stdout=subprocess.PIPE)
+	if "Microsoft" in platform.uname().release or "Windows" in platform.uname().system:
+		subprocess.run(["explorer.exe", "crowdworksrss.htm"], stdout=subprocess.PIPE)
+	else:
+		subprocess.run(["open", "crowdworksrss.htm"], stdout=subprocess.PIPE)
+	'''
 	sleep(5)
 	subprocess.run(["rm", "crowdworksrss.htm"], stdout=subprocess.PIPE)
+	'''
 
 # crowdworksであればRSS、lancersであればHTMLのスクレイピングを行う
 def FetchHtml(urlList):
