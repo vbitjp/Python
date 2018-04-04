@@ -23,6 +23,7 @@ def main():
 	for line in writeList:
 		out_file.write(line)
 	out_file.close()
+	# Bush on Windows(WSL)でunameを取得するとMicrosoftを含む。DOSプロンプトで実行するとWindowsを含む
 	if "Microsoft" in platform.uname().release or "Windows" in platform.uname().system:
 		subprocess.run(["explorer.exe", "crowdworksrss.htm"], stdout=subprocess.PIPE)
 	else:
