@@ -1,4 +1,4 @@
-# iPhoneのマイクで騒音レベルをする。iOSのPythonista3で実行する想定のコード
+# iPhoneのマイクで騒音レベルを測定する。iOSのPythonista3で実行する想定のコード
 # 主な機能:
 # - 騒音レベル測定
 
